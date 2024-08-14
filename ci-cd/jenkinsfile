@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REGISTRY = "your-docker-registry"
+        DOCKER_REGISTRY = "ghcr.io/KHMSmartBuild"
         DOCKER_CREDENTIALS_ID = "docker-credentials-id"
         KUBE_CONFIG = credentials('kubeconfig')
     }
@@ -10,14 +10,14 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/yourusername/ai-assistant.git'
+                git branch: 'main', url: 'https://github.com/KHMSmartBuild/personal-ai-assistant.git'
             }
         }
 
         stage('Build Docker Images') {
             steps {
                 script {
-                    def services = ['nlp-agent', 'routine-detection-agent', 'security-privacy-agent', 'feedback-improvement-agent', 'proactive-assistance-agent', 'task-management-agent']
+                    def services = ['nlp-agent', 'routine-detection-agent', 'preference-learning-agent', 'task-management-agent', 'security-privacy-agent', 'feedback-improvement-agent', 'proactive-assistance-agent']
                     for (service in services) {
                         docker.build("${DOCKER_REGISTRY}/${service}:latest", "./services/${service}")
                     }
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", "${DOCKER_CREDENTIALS_ID}") {
-                        def services = ['nlp-agent', 'routine-detection-agent', 'security-privacy-agent', 'feedback-improvement-agent', 'proactive-assistance-agent', 'task-management-agent']
+                        def services = ['nlp-agent', 'routine-detection-agent', 'preference-learning-agent', 'task-management-agent', 'security-privacy-agent', 'feedback-improvement-agent', 'proactive-assistance-agent']
                         for (service in services) {
                             docker.image("${DOCKER_REGISTRY}/${service}:latest").push()
                         }
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     withKubeConfig([credentialsId: 'kubeconfig']) {
-                        def services = ['nlp-agent', 'routine-detection-agent', 'security-privacy-agent', 'feedback-improvement-agent', 'proactive-assistance-agent', 'task-management-agent']
+                        def services = ['nlp-agent', 'routine-detection-agent', 'preference-learning-agent', 'task-management-agent', 'security-privacy-agent', 'feedback-improvement-agent', 'proactive-assistance-agent']
                         for (service in services) {
                             sh "helm upgrade --install ${service} ./charts/${service} --set image.repository=${DOCKER_REGISTRY}/${service} --set image.tag=latest"
                         }
@@ -54,7 +54,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    def services = ['nlp-agent', 'routine-detection-agent', 'security-privacy-agent', 'feedback-improvement-agent', 'proactive-assistance-agent', 'task-management-agent']
+                    def services = ['nlp-agent', 'routine-detection-agent', 'preference-learning-agent', 'task-management-agent', 'security-privacy-agent', 'feedback-improvement-agent', 'proactive-assistance-agent']
                     for (service in services) {
                         sh "docker run --rm ${DOCKER_REGISTRY}/${service}:latest pytest services/${service}/tests"
                     }

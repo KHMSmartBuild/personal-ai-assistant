@@ -4,7 +4,7 @@
 Import-Module WebAdministration
 
 # Load Configuration
-$configFilePath = "C:\path\to\your\config.yaml"
+$configFilePath = "config/config.yaml"
 if (-Not (Test-Path $configFilePath)) {
     Write-Host "Configuration file not found at $configFilePath"
     exit 1

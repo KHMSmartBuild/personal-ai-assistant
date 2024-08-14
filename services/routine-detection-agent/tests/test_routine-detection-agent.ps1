@@ -47,7 +47,7 @@ $routineDetectionData = @{
 Test-Endpoint -url "$baseUrl/detect" -method "POST" -body $routineDetectionData
 
 # Test 3: Check if the configuration file loads correctly
-$configFile = "C:\path\to\your\config.yaml"
+$configFile = "config/config.yaml"
 if (Test-Path $configFile) {
     Write-Host "Configuration File Test: Found"
     $configContent = Get-Content $configFile -Raw

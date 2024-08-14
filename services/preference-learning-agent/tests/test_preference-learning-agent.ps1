@@ -81,7 +81,7 @@ try {
 Write-Host "--------------------------------------------"
 
 # Test 6: Load and verify the configuration file
-$configFile = "C:\path\to\your\config.yaml"
+$configFile = "config/config.yaml"
 if (Test-Path $configFile) {
     Write-Host "Configuration File Test: Found"
     $configContent = Get-Content $configFile -Raw

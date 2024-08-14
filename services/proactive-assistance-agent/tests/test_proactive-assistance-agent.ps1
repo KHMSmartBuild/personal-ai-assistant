@@ -44,7 +44,7 @@ Test-Endpoint -url "$baseUrl/trigger" -method "POST" -body $eventTriggerData
 Write-Host "To test time-based triggers, please check the logs for scheduled triggers."
 
 # Test 4: Load and verify the configuration file
-$configFile = "C:\path\to\your\config.yaml"
+$configFile = "config/config.yaml"
 if (Test-Path $configFile) {
     Write-Host "Configuration File Test: Found"
     $configContent = Get-Content $configFile -Raw

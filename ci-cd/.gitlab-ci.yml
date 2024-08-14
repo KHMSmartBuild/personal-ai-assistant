@@ -6,13 +6,13 @@ stages:
 build:
   stage: build
   script:
-    - docker build -t your-docker-repo/nlp-agent:latest ./services/nlp-agent
-    - docker build -t your-docker-repo/routine-detection-agent:latest ./services/routine-detection-agent
-    - docker build -t your-docker-repo/preference-learning-agent:latest ./services/preference-learning-agent
-    - docker build -t your-docker-repo/task-management-agent:latest ./services/task-management-agent
-    - docker build -t your-docker-repo/security-privacy-agent:latest ./services/security-privacy-agent
-    - docker build -t your-docker-repo/feedback-improvement-agent:latest ./services/feedback-improvement-agent
-    - docker build -t your-docker-repo/proactive-assistance-agent:latest ./services/proactive-assistance-agent
+    - docker build -t ghcr.io/KHMSmartBuild/nlp-agent:latest ./services/nlp-agent
+    - docker build -t ghcr.io/KHMSmartBuild/routine-detection-agent:latest ./services/routine-detection-agent
+    - docker build -t ghcr.io/KHMSmartBuild/preference-learning-agent:latest ./services/preference-learning-agent
+    - docker build -t ghcr.io/KHMSmartBuild/task-management-agent:latest ./services/task-management-agent
+    - docker build -t ghcr.io/KHMSmartBuild/security-privacy-agent:latest ./services/security-privacy-agent
+    - docker build -t ghcr.io/KHMSmartBuild/feedback-improvement-agent:latest ./services/feedback-improvement-agent
+    - docker build -t ghcr.io/KHMSmartBuild/proactive-assistance-agent:latest ./services/proactive-assistance-agent
 
 test:
   stage: test
