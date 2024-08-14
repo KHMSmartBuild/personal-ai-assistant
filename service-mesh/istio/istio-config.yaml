@@ -1,0 +1,250 @@
+# Istio Configuration File
+
+# Namespace where Istio is deployed
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-system
+  labels:
+    istio-injection: enabled
+
+---
+
+# Gateway for managing external access to the services
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: ai-assistant-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway # Use Istio's ingress gateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+
+---
+
+# VirtualService to route traffic to the NLP Agent
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: nlp-agent-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ai-assistant-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /nlp-agent
+    route:
+    - destination:
+        host: nlp-agent-service
+        port:
+          number: 5000
+
+---
+
+# VirtualService to route traffic to the Routine Detection Agent
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: routine-detection-agent-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ai-assistant-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /routine-detection-agent
+    route:
+    - destination:
+        host: routine-detection-agent-service
+        port:
+          number: 5001
+
+---
+
+# VirtualService to route traffic to the Security and Privacy Agent
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: security-privacy-agent-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ai-assistant-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /security-privacy-agent
+    route:
+    - destination:
+        host: security-privacy-agent-service
+        port:
+          number: 5004
+
+---
+
+# VirtualService to route traffic to the Feedback and Improvement Agent
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: feedback-improvement-agent-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ai-assistant-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /feedback-improvement-agent
+    route:
+    - destination:
+        host: feedback-improvement-agent-service
+        port:
+          number: 5005
+
+---
+
+# VirtualService to route traffic to the Proactive Assistance Agent
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: proactive-assistance-agent-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ai-assistant-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /proactive-assistance-agent
+    route:
+    - destination:
+        host: proactive-assistance-agent-service
+        port:
+          number: 5006
+
+---
+
+# VirtualService to route traffic to the Task Management Agent
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: task-management-agent-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - ai-assistant-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /task-management-agent
+    route:
+    - destination:
+        host: task-management-agent-service
+        port:
+          number: 5007
+
+---
+
+# DestinationRule for managing traffic to the NLP Agent
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: nlp-agent-dr
+  namespace: istio-system
+spec:
+  host: nlp-agent-service
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+
+---
+
+# DestinationRule for managing traffic to the Routine Detection Agent
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: routine-detection-agent-dr
+  namespace: istio-system
+spec:
+  host: routine-detection-agent-service
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+
+---
+
+# DestinationRule for managing traffic to the Security and Privacy Agent
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: security-privacy-agent-dr
+  namespace: istio-system
+spec:
+  host: security-privacy-agent-service
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+
+---
+
+# DestinationRule for managing traffic to the Feedback and Improvement Agent
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: feedback-improvement-agent-dr
+  namespace: istio-system
+spec:
+  host: feedback-improvement-agent-service
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+
+---
+
+# DestinationRule for managing traffic to the Proactive Assistance Agent
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: proactive-assistance-agent-dr
+  namespace: istio-system
+spec:
+  host: proactive-assistance-agent-service
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+
+---
+
+# DestinationRule for managing traffic to the Task Management Agent
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: task-management-agent-dr
+  namespace: istio-system
+spec:
+  host: task-management-agent-service
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN

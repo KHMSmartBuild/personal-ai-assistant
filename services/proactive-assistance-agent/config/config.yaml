@@ -1,0 +1,89 @@
+# Proactive Assistance Agent Configuration
+
+# Logging settings
+logging:
+  level: INFO  # Options: DEBUG, INFO, WARNING, ERROR
+  log_to_file: true
+  log_file_path: /var/log/proactive-assistance-agent.log
+
+# Data sources
+data_sources:
+  - name: user_profile_service
+    endpoint: http://user-profile-service:5010
+    enabled: true
+  - name: calendar_service
+    endpoint: http://calendar-service:5009
+    enabled: true
+  - name: contextual_awareness_service
+    endpoint: http://contextual-awareness-service:5012
+    enabled: true
+  - name: preference_learning_service
+    endpoint: http://preference-learning-service:5006
+    enabled: true
+
+# Assistance triggers
+triggers:
+  - type: time_based
+    interval: 60  # Time interval in seconds to check for proactive triggers
+  - type: event_based
+    enabled: true
+
+# Proactive actions
+actions:
+  reminders:
+    enabled: true
+    default_time: "09:00"  # Default time for daily reminders
+  suggestions:
+    enabled: true
+    suggestion_type: "contextual"  # Options: contextual, routine, preference_based
+
+# Notification settings
+notifications:
+  enabled: true
+  notify_via: 
+    - app
+    - email
+  app_endpoint: http://notification-service:5011
+  email_smtp_server: smtp.mailserver.com
+  email_smtp_port: 587
+  email_username: your-email@example.com
+  email_password: your-email-password
+
+# API settings
+api:
+  host: 0.0.0.0
+  port: 5013
+  enable_cors: true  # Enable CORS for cross-origin requests
+
+# Security settings
+security:
+  jwt_secret_key: your_jwt_secret_key
+  enable_https: true
+  ssl_cert_file: /etc/ssl/certs/proactive-assistance-agent.crt
+  ssl_key_file: /etc/ssl/private/proactive-assistance-agent.key
+
+# External service timeouts (in seconds)
+timeouts:
+  default_timeout: 5  # Default timeout for HTTP requests to external services
+  user_profile_service_timeout: 3
+  calendar_service_timeout: 4
+  contextual_awareness_service_timeout: 3
+
+# Database settings (if the agent needs to store historical data)
+database:
+  type: postgres  # Options: postgres, sqlite, mysql
+  host: postgres-service
+  port: 5432
+  username: db_user
+  password: db_password
+  database_name: proactive_assistance_db
+
+# Feature toggles
+features:
+  enable_adaptive_learning: true  # Enable adaptive learning from user behavior
+  enable_personalized_suggestions: true  # Enable personalized suggestions based on learned preferences
+
+# Debug settings
+debug:
+  enabled: false
+  debug_port: 5000  # Port to run the debug server, if enabled

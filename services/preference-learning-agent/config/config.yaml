@@ -1,0 +1,6 @@
+logging:
+  level: INFO
+
+routine_detection:
+  algorithm: "default-algorithm"
+  sensitivity: 0.8

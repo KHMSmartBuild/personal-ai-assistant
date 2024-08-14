@@ -1,0 +1,18 @@
+# Cluster settings
+cluster.name: "elk-cluster"
+node.name: "node-1"
+
+# Network settings
+network.host: 0.0.0.0
+http.port: 9200
+
+# Enable CORS for Kibana (optional)
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+
+# Discovery settings (useful for clustering)
+discovery.type: single-node
+
+# Path settings (to store data)
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch

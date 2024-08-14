@@ -1,0 +1,6 @@
+logging:
+  level: INFO
+
+nlp:
+  model: "default-model"
+  language: "en"

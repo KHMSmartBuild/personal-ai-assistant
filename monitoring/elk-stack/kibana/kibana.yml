@@ -1,0 +1,16 @@
+# Kibana server configuration
+server.host: "0.0.0.0"
+server.port: 5601
+
+# Elasticsearch connection settings
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+# Enable CORS (if needed)
+elasticsearch.requestHeadersWhitelist: [ "authorization", "cookie", "x-*" ]
+
+# Security settings (optional, recommended for production)
+xpack.security.enabled: false
+
+# Logging settings
+logging.dest: /var/log/kibana.log
+logging.verbose: true

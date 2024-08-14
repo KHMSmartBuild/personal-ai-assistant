@@ -1,0 +1,38 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t your-docker-repo/nlp-agent:latest ./services/nlp-agent
+    - docker build -t your-docker-repo/routine-detection-agent:latest ./services/routine-detection-agent
+    - docker build -t your-docker-repo/preference-learning-agent:latest ./services/preference-learning-agent
+    - docker build -t your-docker-repo/task-management-agent:latest ./services/task-management-agent
+    - docker build -t your-docker-repo/security-privacy-agent:latest ./services/security-privacy-agent
+    - docker build -t your-docker-repo/feedback-improvement-agent:latest ./services/feedback-improvement-agent
+    - docker build -t your-docker-repo/proactive-assistance-agent:latest ./services/proactive-assistance-agent
+
+test:
+  stage: test
+  script:
+    - echo "Running unit tests..."
+    - pytest services/nlp-agent/tests
+    - pytest services/routine-detection-agent/tests
+    - pytest services/preference-learning-agent/tests
+    - pytest services/task-management-agent/tests
+    - pytest services/security-privacy-agent/tests
+    - pytest services/feedback-improvement-agent/tests
+    - pytest services/proactive-assistance-agent/tests
+
+deploy:
+  stage: deploy
+  script:
+    - helm upgrade --install nlp-agent ./charts/nlp-agent
+    - helm upgrade --install routine-detection-agent ./charts/routine-detection-agent
+    - helm upgrade --install preference-learning-agent ./charts/preference-learning-agent
+    - helm upgrade --install task-management-agent ./charts/task-management-agent
+    - helm upgrade --install security-privacy-agent ./charts/security-privacy-agent
+    - helm upgrade --install feedback-improvement-agent ./charts/feedback-improvement-agent
+    - helm upgrade --install proactive-assistance-agent ./charts/proactive-assistance-agent

@@ -1,0 +1,59 @@
+# Task Management Agent Configuration
+
+# Logging settings
+logging:
+  level: INFO  # Options: DEBUG, INFO, WARNING, ERROR
+  log_to_file: true
+  log_file_path: /var/log/task-management-agent.log
+
+# Task scheduling settings
+scheduling:
+  interval: 60  # Time interval in seconds to check for scheduled tasks
+  max_retries: 3  # Maximum number of retries for failed tasks
+
+# Task database settings
+database:
+  type: postgres  # Options: postgres, sqlite, mysql
+  host: postgres-service
+  port: 5432
+  username: db_user
+  password: db_password
+  database_name: task_management_db
+
+# External service settings
+external_services:
+  notification_service:
+    endpoint: http://notification-service:5011
+    enabled: true
+  user_profile_service:
+    endpoint: http://user-profile-service:5010
+    enabled: true
+
+# API settings
+api:
+  host: 0.0.0.0
+  port: 5023
+  enable_cors: true  # Enable CORS for cross-origin requests
+
+# Security settings
+security:
+  jwt_secret_key: your_jwt_secret_key
+  enable_https: true
+  ssl_cert_file: /etc/ssl/certs/task-management-agent.crt
+  ssl_key_file: /etc/ssl/private/task-management-agent.key
+
+# Timeouts (in seconds) for external service requests
+timeouts:
+  default_timeout: 5  # Default timeout for HTTP requests to external services
+  notification_service_timeout: 3
+  user_profile_service_timeout: 4
+
+# Feature toggles
+features:
+  enable_task_reminders: true  # Enable task reminders via notification service
+  enable_task_prioritization: true  # Enable automatic task prioritization based on user preferences
+
+# Debug settings
+debug:
+  enabled: false
+  debug_port: 5024  # Port to run the debug server, if enabled

@@ -1,0 +1,6 @@
+logging:
+  level: INFO
+
+feedback:
+  collection_interval: "daily"
+  improvement_model: "default-model"

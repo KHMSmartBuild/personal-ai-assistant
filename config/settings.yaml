@@ -1,0 +1,24 @@
+application:
+  name: ai-assistant
+  version: 1.0.0
+
+logging:
+  level: INFO
+
+database:
+  postgres:
+    host: postgres
+    port: 5432
+    user: user
+    password: postgres-password
+    dbname: ai_assistant
+
+redis:
+  host: redis
+  port: 6379
+  password: redis-password
+
+security:
+  jwt:
+    secret: jwt-secret
+    expiration_minutes: 60

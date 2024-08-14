@@ -1,0 +1,9 @@
+_format_version: "2.1"
+services:
+  - name: task-management-agent
+    url: http://task-management-agent:5003
+    routes:
+      - name: task-management-route
+        paths:
+          - /tasks
+        strip_path: true

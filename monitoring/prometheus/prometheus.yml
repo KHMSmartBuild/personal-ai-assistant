@@ -1,0 +1,51 @@
+# Global configuration
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds
+  evaluation_interval: 15s # Evaluate rules every 15 seconds
+
+# Scrape configuration
+scrape_configs:
+  # Scrape configuration for Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Scrape configuration for NLP Agent
+  - job_name: 'nlp-agent'
+    static_configs:
+      - targets: ['nlp-agent-service:5000']
+
+  # Scrape configuration for Routine Detection Agent
+  - job_name: 'routine-detection-agent'
+    static_configs:
+      - targets: ['routine-detection-agent-service:5001']
+
+  # Scrape configuration for Security and Privacy Agent
+  - job_name: 'security-privacy-agent'
+    static_configs:
+      - targets: ['security-privacy-agent-service:5004']
+
+  # Scrape configuration for Feedback and Improvement Agent
+  - job_name: 'feedback-improvement-agent'
+    static_configs:
+      - targets: ['feedback-improvement-agent-service:5005']
+
+  # Scrape configuration for Proactive Assistance Agent
+  - job_name: 'proactive-assistance-agent'
+    static_configs:
+      - targets: ['proactive-assistance-agent-service:5006']
+
+  # Scrape configuration for Task Management Agent
+  - job_name: 'task-management-agent'
+    static_configs:
+      - targets: ['task-management-agent-service:5007']
+
+  # Scrape configuration for Postgres
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-service:9187']
+
+  # Scrape configuration for Redis
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-service:9121']
